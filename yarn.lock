@@ -2100,9 +2100,9 @@ isurl@^1.0.0-alpha5:
     has-to-string-tag-x "^1.2.0"
     is-object "^1.0.1"
 
-joi-to-swagger@^1.2.0:
-  version "1.2.0"
-  resolved "https://registry.yarnpkg.com/joi-to-swagger/-/joi-to-swagger-1.2.0.tgz#762ca7bec003527e4964cb044f62007d3bd48194"
+joi-to-swagger@^2.0.0:
+  version "2.0.0"
+  resolved "https://registry.yarnpkg.com/joi-to-swagger/-/joi-to-swagger-2.0.0.tgz#10c16deb6237b01f59a9ee767bf37b05af950783"
   dependencies:
     lodash.find "^4.0.0"
     lodash.get "^4.0.2"
