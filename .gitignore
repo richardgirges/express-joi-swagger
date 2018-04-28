@@ -1,0 +1,17 @@
+.DS_Store*
+Icon?
+._*
+Thumbs.db
+ehthumbs.db
+Desktop.ini
+.directory
+*~
+npm-debug.log
+node_modules
+*.log
+*.gz
+
+coverage
+example/yarn.lock
+example/package-lock.json
+example/node_modules

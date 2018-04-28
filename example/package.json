@@ -1,0 +1,19 @@
+{
+  "name": "express-joi-swagger-example",
+  "version": "0.0.1",
+  "description": "Example project for express-joi-swagger",
+  "main": "./server.js",
+  "repository": "git@github.com:richardgirges/express-joi-swagger.git",
+  "author": "Richard Girges",
+  "license": "MIT",
+  "scripts": {
+    "start": "nodemon -w ../ ./server.js"
+  },
+  "dependencies": {
+    "express": "^4.16.3",
+    "joi": "^11.0.3"
+  },
+  "devDependencies": {
+    "nodemon": "^1.12.1"
+  }
+}

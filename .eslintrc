@@ -1,0 +1,23 @@
+{
+  "extends": "google",
+  "env": {
+    "node": true,
+    "mocha": true
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
+  },
+  "rules": {
+    "no-undef": 2,
+    "comma-dangle": [2, "never"],
+    "max-len": [2, {
+      "code": 100,
+      "tabWidth": 2
+    }],
+    "keyword-spacing": 2,
+    "key-spacing": [2, { "beforeColon": false, "afterColon": true }],
+    "object-curly-spacing": [2, "always"],
+    "indent": [2, 2, { "SwitchCase": 1 }],
+    "guard-for-in": 0
+  }
+}
