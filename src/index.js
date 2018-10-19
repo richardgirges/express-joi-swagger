@@ -1,3 +1,4 @@
+const express = require('express');
 const merge = require('lodash.merge');
 const validateSchema = require('./validateSchema');
 const buildRouteDefinition = require('./buildRouteDefinition');
@@ -41,8 +42,7 @@ class ExpressJoiSwagger {
    * @return {Object}
    */
   wrapRouter(expressRouter, namespace = null, tags = null) {
-    return Object.assign({}, expressRouter, {
-      expressRouter,
+    return Object.assign(express(), expressRouter, {
       use: this._requestHandler.bind(this, { method: 'all', namespace, tags }, expressRouter),
       all: this._requestHandler.bind(this, { method: 'all', namespace, tags }, expressRouter),
       get: this._requestHandler.bind(this, { method: 'get', namespace, tags }, expressRouter),
@@ -77,7 +77,8 @@ class ExpressJoiSwagger {
    * @return {void}
    */
   _requestHandler({ method, namespace, tags }, expressRouter, ...args) {
-    const routeOpts = typeof args[1] === 'object' ? args[1] : {}; // check for user-defined options
+    const routeOptsDefined = typeof args[1] === 'object';
+    const routeOpts = routeOptsDefined ? args[1] : {}; // check for user-defined options
     const routerArgs = args.filter((a, i) => i === 0 || typeof a === 'function');
     const joiOpts = Object.assign({}, DEFAULT_JOI_OPTS, routeOpts.joiOpts || {}, this.joiOpts);
     const onValidateError = routeOpts.onValidateError || this.onValidateError;
@@ -86,7 +87,9 @@ class ExpressJoiSwagger {
     routeOpts.tags = tags;
 
     // Build a swagger definition for this path
-    buildRouteDefinition(method, args[0], routeOpts, this.swaggerDefinition);
+    if ( routeOptsDefined ) {
+      buildRouteDefinition(method, args[0], routeOpts, this.swaggerDefinition);
+    }
 
     // If validation schema is present, add a middleware in the route chain to perform validation
     if (routeOpts.validate) {
