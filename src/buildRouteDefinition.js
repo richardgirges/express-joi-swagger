@@ -101,25 +101,28 @@ function _buildParameters(validationSchema) {
     query: [],
     body: [],
     params: [],
-    files: []
+    files: [],
+    headers: []
   };
 
   if (!validationSchema) {
     return [];
   }
 
-  if (validationSchema.query) {
-    const { properties } = j2s(validationSchema.query).swagger;
+  Object.keys(reqParams).forEach((reqKey) => {
+    if (validationSchema[reqKey]) {
+      const { properties } = j2s(validationSchema[reqKey]).swagger;
 
-    for (const k in properties) {
-      const property = properties[k];
+      for (const k in properties) {
+        const property = properties[k];
 
-      property.name = k;
-      property.in = 'query';
+        property.name = k;
+        property.in = reqKey;
 
-      reqParams.query.push(property);
+        reqParams[reqKey].push(property);
+      }
     }
-  }
+  });
 
   return reqParams.query
     .concat(reqParams.body)
