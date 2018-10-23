@@ -43,6 +43,7 @@ class ExpressJoiSwagger {
    */
   wrapRouter(expressRouter, namespace = null, tags = null) {
     return Object.assign(express(), expressRouter, {
+      expressRouter,
       use: this._requestHandler.bind(this, { method: 'all', namespace, tags }, expressRouter),
       all: this._requestHandler.bind(this, { method: 'all', namespace, tags }, expressRouter),
       get: this._requestHandler.bind(this, { method: 'get', namespace, tags }, expressRouter),
