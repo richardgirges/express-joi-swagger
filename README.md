@@ -76,13 +76,11 @@ joiSwagger.wrapRouter(app).listen(8000, () => console.log('Express server listen
 ### Defining Arbitrary Swagger Definitions
 ```javascript
 joiSwagger.assignDefinition({
-  definitions: {
-    User: {
-      type: 'object',
-      properties: {
-        id: { type: 'number' },
-        firstName: { type: 'string' }
-      }
+  User: {
+    type: 'object',
+    properties: {
+      id: { type: 'number' },
+      firstName: { type: 'string' }
     }
   }
 });

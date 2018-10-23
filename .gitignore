@@ -10,6 +10,7 @@ npm-debug.log
 node_modules
 *.log
 *.gz
+.idea
 
 coverage
 example/yarn.lock
