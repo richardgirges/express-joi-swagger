@@ -1,6 +1,6 @@
 {
   "name": "express-joi-swagger",
-  "version": "0.0.1-alpha.4",
+  "version": "0.0.1-alpha.5",
   "description": "Simple non-intrusive library for validating Express routes with Joi and auto-generating Swagger documentation.",
   "main": "./src/index.js",
   "repository": "git@github.com:richardgirges/express-joi-swagger.git",
