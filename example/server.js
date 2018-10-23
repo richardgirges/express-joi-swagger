@@ -8,13 +8,11 @@ app.use('/ping', (req, res) => res.send('pong'));
 app.use('/api', require('./routes/foo'));
 
 joiSwagger.assignDefinition({
-  definitions: {
-    User: {
-      type: 'object',
-      properties: {
-        id: { type: 'number' },
-        firstName: { type: 'string' }
-      }
+  User: {
+    type: 'object',
+    properties: {
+      id: { type: 'number' },
+      firstName: { type: 'string' }
     }
   }
 });
