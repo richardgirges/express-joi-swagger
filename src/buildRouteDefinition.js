@@ -160,12 +160,12 @@ function _buildResponses(responses, method, routePath, responseStructures = null
 
       const httpCode = parseInt(k);
 
-      if (responses === true) {
+      if (!responses) {
         responsesDefinition[httpCode] = {
           description: HTTPStatus[httpCode]
         };
       } else {
-        if (responseStructures[httpCode]) {
+        if (responseStructures && responseStructures[httpCode]) {
           responsesDefinition[httpCode] = cloneDeep(responseStructures[httpCode]);
           responsesDefinition[httpCode].schema.properties.data = responses[httpCode];
         } else {
