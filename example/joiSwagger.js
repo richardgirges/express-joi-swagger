@@ -1,4 +1,4 @@
-const ExpressJoiSwagger = require('../src/ExpressJoiSwagger');
+const ExpressJoiSwagger = require('../src');
 
 const joiSwagger = new ExpressJoiSwagger({
   swaggerDefinition: {
