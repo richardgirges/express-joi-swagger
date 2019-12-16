@@ -126,7 +126,7 @@ class ExpressJoiSwagger {
   _listen(expressRouter, ...args) {
     this._buildSwaggerDefinition(expressRouter);
 
-    expressRouter.listen(...args);
+    return expressRouter.listen(...args);
   }
 
   /**
