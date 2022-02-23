@@ -7,7 +7,7 @@ const Joi = require('joi');
  * @param {Object} joiOpts
  * @param {Function} callback
  */
-module.exports = function validateSchema(req, schema, joiOpts, callback) {
+module.exports = function validateSchema(req, schema, joiOpts) {
   const data = {};
 
   if (schema.body) {
@@ -26,29 +26,29 @@ module.exports = function validateSchema(req, schema, joiOpts, callback) {
     data.files = req.files;
   }
 
-  Joi.validate(data, schema, joiOpts, (errors, result) => {
-    const validatedData = {};
+  const { value, error } = Joi.object(schema).validate(data, joiOpts);
+  const validatedData = {};
 
-    if (result.body) {
-      validatedData.body = result.body;
-    }
+  if (value.body) {
+    validatedData.body = value.body;
+  }
 
-    if (result.query) {
-      validatedData.query = result.query;
-    }
+  if (value.query) {
+    validatedData.query = value.query;
+  }
 
-    if (result.params) {
-      validatedData.params = result.params;
-    }
+  if (value.params) {
+    validatedData.params = value.params;
+  }
 
-    if (result.files) {
-      validatedData.files = result.files;
-    }
+  if (value.files) {
+    validatedData.files = value.files;
+  }
 
-    if (errors) {
-      return callback(errors.details.map((e) => e.message), result);
-    }
+  const errors = error ? error.details.map((e) => e.message) : null;
 
-    callback(null, result);
-  });
+  return {
+    errors,
+    validatedData
+  };
 };

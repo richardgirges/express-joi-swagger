@@ -96,22 +96,22 @@ class ExpressJoiSwagger {
     if (routeOpts.validate) {
       routerArgs.splice(1, 0, (req, res, next) => {
         // Execute validation
-        validateSchema(req, routeOpts.validate, joiOpts, (errors, validatedData) => {
-          // If errors are present, check if there is a user-defined request error handler
-          if (errors) {
-            if (onValidateError) {
-              return onValidateError(errors, req, res, next);
-            }
+        const { errors, validatedData } = validateSchema(req, routeOpts.validate, joiOpts);
 
-            // As a fallback, send a 400 with an array of errors
-            return res.status(400).send(errors);
+        // If errors are present, check if there is a user-defined request error handler
+        if (errors) {
+          if (onValidateError) {
+            return onValidateError(errors, req, res, next);
           }
 
-          // Attach the validated request parameters to the request object
-          req.validated = validatedData;
+          // As a fallback, send a 400 with an array of errors
+          return res.status(400).send(errors);
+        }
 
-          next();
-        });
+        // Attach the validated request parameters to the request object
+        req.validated = validatedData;
+
+        next();
       });
     }
 
