@@ -1,5 +1,13 @@
 const Joi = require('joi');
 
+const validateObj = (schema, req) => {
+  let validateObj = {};
+  Object.keys(schema.describe().keys).map((key) => {
+      validateObj[key] = req[key];
+  });
+  return validateObj;
+}
+
 /**
  * Validate an Express request object against a Joi validation schema
  * @param {Object} req
@@ -7,48 +15,14 @@ const Joi = require('joi');
  * @param {Object} joiOpts
  * @param {Function} callback
  */
-module.exports = function validateSchema(req, schema, joiOpts) {
-  const data = {};
-
-  if (schema.body) {
-    data.body = req.body;
+module.exports = (req, schema, joiOpts) => {
+  if (typeof schema === 'function'){
+      schema = schema();
   }
-
-  if (schema.query) {
-    data.query = req.query;
-  }
-
-  if (schema.params) {
-    data.params = req.params;
-  }
-
-  if (schema.files) {
-    data.files = req.files;
-  }
-
-  const { value, error } = Joi.object(schema).validate(data, joiOpts);
-  const validatedData = {};
-
-  if (value.body) {
-    validatedData.body = value.body;
-  }
-
-  if (value.query) {
-    validatedData.query = value.query;
-  }
-
-  if (value.params) {
-    validatedData.params = value.params;
-  }
-
-  if (value.files) {
-    validatedData.files = value.files;
-  }
-
+  const {value, error} = schema.validate(validateObj(schema, req), joiOpts);
   const errors = error ? error.details.map((e) => e.message) : null;
-
   return {
     errors,
-    validatedData
+    value
   };
 };
