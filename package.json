@@ -3,7 +3,7 @@
   "version": "0.0.1-alpha.7",
   "description": "Simple non-intrusive library for validating Express routes with Joi and auto-generating Swagger documentation.",
   "main": "./src/index.js",
-  "repository": "git@github.com:richardgirges/express-joi-swagger.git",
+  "repository": "git@github.com:aydinkodzilla/express-joi-swagger.git",
   "license": "MIT",
   "scripts": {
     "lint": "eslint ./",

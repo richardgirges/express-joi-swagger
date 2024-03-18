@@ -93,27 +93,7 @@ class ExpressJoiSwagger {
     }
 
     // If validation schema is present, add a middleware in the route chain to perform validation
-    if (routeOpts.validate) {
-      routerArgs.splice(1, 0, (req, res, next) => {
-        // Execute validation
-        const { errors, validatedData } = validateSchema(req, routeOpts.validate, joiOpts);
-
-        // If errors are present, check if there is a user-defined request error handler
-        if (errors) {
-          if (onValidateError) {
-            return onValidateError(errors, req, res, next);
-          }
-
-          // As a fallback, send a 400 with an array of errors
-          return res.status(400).send(errors);
-        }
-
-        // Attach the validated request parameters to the request object
-        req.validated = validatedData;
-
-        next();
-      });
-    }
+    
 
     return expressRouter[method](...routerArgs);
   }
